@@ -6,7 +6,8 @@ class MyPushButton(QPushButton):
     def __init__(
         self,
         text = "",
-        color = "#8489a6", 
+        color = "#8489a6",
+        text_color = "white",
         border_radius = 10,
         font_size = 12,
         hover = "#c3ccdf",
@@ -25,6 +26,7 @@ class MyPushButton(QPushButton):
         self.hover = hover
         self.pressed = pressed
         self.disabled = set_disabled
+        self.text_color = text_color
 
         self.setText(text)        
         self.setMaximumWidth(maximum_width)
@@ -42,7 +44,8 @@ class MyPushButton(QPushButton):
             font_size = self.font_size,
             hover = self.hover,
             pressed = self.pressed,
-            disabled = set_disabled
+            disabled = set_disabled,
+            text_color=self.text_color
         )
 
     def set_style(
@@ -52,6 +55,7 @@ class MyPushButton(QPushButton):
         font_size = 12,
         hover = "#c3ccdf",
         pressed = "#44475a",
+        text_color = "white",
         disabled = False
         ):
 
@@ -60,6 +64,7 @@ class MyPushButton(QPushButton):
                 background-color: {color};
                 border-radius: {border_radius}px;
                 font-size: {font_size}pt;
+                color: {text_color}
             }}
             QPushButton:hover {{
                 background-color: {hover};

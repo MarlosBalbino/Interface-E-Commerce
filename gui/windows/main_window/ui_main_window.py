@@ -1,5 +1,3 @@
-from ctypes import alignment
-from gui.widgets.my_widgets import MyWidgets
 from qt_core import *
 
 # IMPORT PAGES
@@ -7,12 +5,11 @@ from gui.pages.ui_page_1 import UI_application_page_1
 from gui.pages.ui_page_2 import UI_application_page_2
 from gui.pages.ui_page_3 import UI_application_page_3
 from gui.pages.ui_page_4 import UI_application_page_4
-from gui.pages.ui_settings import UI_application_settings
 
 # IMPORT CUSTOM WIDGETS
 from gui.widgets.py_push_button import PyPushButton
+from my_widgets.my_scroll_bar import MyScrollBar
 
-#IMPORT PAGES
 
 # MAIN WINDOW
 class UI_MainWindow(object):
@@ -49,101 +46,9 @@ class UI_MainWindow(object):
         self.h_spacer2 = QSpacerItem(20, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.v_spacer = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-
-        # LEFT MENU
-        self.left_menu = QFrame()
-        self.left_menu.setStyleSheet("background-color: #44475a")
-        self.left_menu.setMinimumWidth(0)
-        self.left_menu.setMaximumWidth(0)
-
-        # LEFT MENU LAYOUT
-        self.left_menu_layout = QVBoxLayout(self.left_menu)
-        self.left_menu_layout.setContentsMargins(0,0,0,0)
-        self.left_menu_layout.setSpacing(0)
-
-        # TOP FRAME MENU
-        self.left_menu_top_frame = QFrame()
-        self.left_menu_top_frame.setMinimumHeight(40)
-        
-        # TOP FRAME MENU LAYOUT
-        self.left_menu_top_layout = QVBoxLayout(self.left_menu_top_frame)
-        self.left_menu_top_layout.setContentsMargins(0,0,0,0)
-        self.left_menu_top_layout.setSpacing(0)
-
-        # PUSH BTNS
-        self.toggle_btn = PyPushButton(
-            text = "Menu",
-            icon_path = "icon_menu.svg"
-        )
-        self.btn_1 = PyPushButton(
-            text = "Home",
-            is_active = True,
-            icon_path = "icon_home.svg",
-        )
-        self.btn_2 = PyPushButton(
-            text = "Devices",
-            icon_path = "cil-ci-2.png"
-        )
-        self.btn_3 = PyPushButton(
-            text = "Charts",
-            icon_path = "cil-charts-2.png"
-        )
-        self.btn_4 = PyPushButton(
-            text = "SCADA",
-            icon_path = "cil-scada-3.png"
-        )
-        self.btn_5 = PyPushButton(
-            text = "Open folder",
-            icon_path = "cil-folder.png"
-        )
-
-        # ADD PUSH BTNS TO LAOUT
-        # self.left_menu_top_layout.addWidget(self.toggle_btn)
-        self.left_menu_top_layout.addWidget(self.btn_1)
-        self.left_menu_top_layout.addWidget(self.btn_2)
-        self.left_menu_top_layout.addWidget(self.btn_3)
-        self.left_menu_top_layout.addWidget(self.btn_4)
-        self.left_menu_top_layout.addWidget(self.btn_5)
-
-        # MENU SPACER
-        self.left_menu_spacer = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        # BOTTOM FRAME MENU
-        self.left_menu_bottom_frame = QFrame()
-        self.left_menu_bottom_frame.setMinimumHeight(40)
-        # self.left_menu_bottom_frame.setObjectName("left_menu_bottom_frame")
-        # self.left_menu_bottom_frame.setStyleSheet("#left_menu_bottom_frame { background-color: red }")
-        
-        # BOTTOM FRAME MENU LAYOUT
-        self.left_menu_bottom_layout = QVBoxLayout(self.left_menu_bottom_frame)
-        self.left_menu_bottom_layout.setContentsMargins(0,0,0,0)
-        self.left_menu_bottom_layout.setSpacing(0)
-
-        # PUSH SETTINGS BTN
-        self.settings_btn = PyPushButton(
-            text = "Settings",
-            icon_path = "icon_settings.svg"
-        )
-
-        # ADD PUSH BTN CONFIG TO LAYOUT
-        self.left_menu_bottom_layout.addWidget(self.settings_btn)
-
-        # LABEL VERSION
-        self.left_menu_label_version = QLabel("")
-        self.left_menu_label_version.setStyleSheet("color: #c3ccdf") 
-        self.left_menu_label_version.setAlignment(Qt.AlignCenter)
-        self.left_menu_label_version.setMinimumHeight(15)
-        self.left_menu_label_version.setMaximumHeight(15)
-
-        # ADD TO LAYOUT
-        self.left_menu_layout.addWidget(self.left_menu_top_frame)
-        self.left_menu_layout.addItem(self.left_menu_spacer)
-        self.left_menu_layout.addWidget(self.left_menu_bottom_frame)
-        self.left_menu_layout.addWidget(self.left_menu_label_version)
-
         # CONTENT
-        self.content = QFrame()
-        self.content.setStyleSheet("background-color: #f2f2f2")
+        self.content = QWidget()
+        #self.content.setStyleSheet("background-color: #707070") #f2f2f2
 
         # CONTENT LAYOUT
         self.content_layout = QVBoxLayout(self.content)
@@ -155,8 +60,10 @@ class UI_MainWindow(object):
         # self.top_bar.setMaximumHeight(50)
         self.top_bar.setMinimumHeight(55)
         self.top_bar.setStyleSheet("background-color: #21232d; color: #6272a4")
+
         self.top_bar_layout = QHBoxLayout(self.top_bar)
-        self.top_bar_layout.setContentsMargins(5,5,5,5)
+        self.top_bar_layout.setContentsMargins(15,5,15,5)
+        self.top_bar_layout.setSpacing(50)
 
         self.tittle_label = QLabel("Projeto e-commerce", parent=self.top_bar)
         self.tittle_label.setStyleSheet("color: #ff4747; font: bold 18pt")
@@ -165,100 +72,86 @@ class UI_MainWindow(object):
         self.tittle_label.move(200, 5)
 
         self.initial_page_btn = QPushButton("Página inicial")
-        self.initial_page_btn.setStyleSheet("border: none; color: #ff4747")
+        self.initial_page_btn.setStyleSheet("border: none; color: #ff4747; font: 12pt")
         self.initial_page_btn.hide()
 
         self.login_btn = QPushButton("Login ou cadastro")
         self.login_btn.setStyleSheet("border: none; color: #ff4747; font: 12pt")
 
+        self.logout_btn = QPushButton("Logout")
+        self.logout_btn.setStyleSheet("border: none; color: #ff4747; font: 12pt")
+        self.logout_btn.hide()
+
         self.account_btn = QPushButton("Conta")
         self.account_btn.setStyleSheet("border: none; color: #ff4747; font: 12pt")
         self.account_btn.hide()
+
+        self.support_btn = QPushButton("Suporte")
+        self.support_btn.setStyleSheet("border: none; color: #ff4747; font: 12pt")
 
         # TOP FRAME LAYOUT
         self.top_bar_layout.addSpacerItem(self.h_spacer)
         self.top_bar_layout.addWidget(self.login_btn)
         self.top_bar_layout.addWidget(self.account_btn)
         self.top_bar_layout.addWidget(self.initial_page_btn)
-
-        # left toggle btn frame
-        self.toggle_btn_frame = QFrame()
-        self.toggle_btn_frame.setMaximumSize(QSize(50, 40))
-        self.toggle_btn_frame.setMinimumSize(QSize(50, 40))
-
-        self.toggle_btn_layout = QHBoxLayout(self.toggle_btn_frame)
-        self.toggle_btn_layout.setContentsMargins(0,0,0,0)
-        self.toggle_btn_layout.addWidget(self.toggle_btn)
-
-        # # left label
-        # self.top_left_label = QLabel("")
+        self.top_bar_layout.addWidget(self.logout_btn)
+        self.top_bar_layout.addWidget(self.support_btn)
 
         # spacer
         self.spacer = QSpacerItem(20, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        # right label
-        # self.top_right_label = QLabel("Divices")
-        # self.top_right_label.setStyleSheet("font: 700 9pt 'Segoe UI'")
-
-        #add labels to top bar layout
-        # self.top_bar_layout.addWidget(self.toggle_btn_frame)
-        # self.top_bar_layout.addWidget(self.top_left_label)
-        # self.top_bar_layout.addSpacerItem(self.spacer)
-        # self.top_bar_layout.addWidget(self.top_right_label)
-
         # APPLICATION PAGES
         self.pages = QStackedWidget()
-        self.pages.setStyleSheet("font-size: 12pt; color: #f8f8f2")
+        self.pages.setStyleSheet("background-color: #f3f4f4; font-size: 12pt; color: #f8f8f2")
         self.pages.setWindowTitle("application_pages")
         self.pages.resize(622, 515)
         self.ui_page_1 = UI_application_page_1(self)        
         self.ui_page_2 = UI_application_page_2(self)        
         self.ui_page_3 = UI_application_page_3(self)        
-        self.ui_page_4 = UI_application_page_4(self)        
-        #self.ui_sttgs = UI_application_settings(self)        
+        self.ui_page_4 = UI_application_page_4(self)
         self.pages.setCurrentWidget(self.ui_page_2.page)
-
-        # BOTTOM BAR
-        self.bottom_bar = QFrame()
-        self.bottom_bar.setMaximumHeight(15)
-        self.bottom_bar.setMinimumHeight(15)
-        self.bottom_bar.setStyleSheet("background-color: #343644; color: #6272a4")
-        self.bottom_bar_layout = QHBoxLayout(self.bottom_bar)
-        self.bottom_bar_layout.setContentsMargins(5,0,5,0)
-
-        # left label
-        self.bottom_left_label = QLabel("MBN Enterprises")
-
-        # spacer
-        self.bottom_spacer = QSpacerItem(20, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        # right label
-        self.bottom_right_label = QLabel("© 2022")
-
-        # add labels to top bar layout
-        self.bottom_bar_layout.addWidget(self.bottom_left_label)
-        self.bottom_bar_layout.addSpacerItem(self.bottom_spacer)
-        self.bottom_bar_layout.addWidget(self.bottom_right_label)
 
         # ADD WIDGETS TO CONTENT LAYOUT
         self.content_layout.addWidget(self.pages)
 
         # ADD WIDGETS TO MAIN LAYOUT
-        self.main_layout.addWidget(self.left_menu)        
         self.main_layout.addWidget(self.content)
         
         # ADD WIDGETS TO CENTRAL FRAME
         self.extern_layout.addWidget(self.top_bar)
         self.extern_layout.addWidget(self.main_frame)
-        #self.extern_layout.addWidget(self.bottom_bar)
 
         # SET CENTRAL WIDGET
         parent.setCentralWidget(self.central_frame)
 
-        self.login_btn.clicked.connect(lambda: self.pages.setCurrentWidget(self.ui_page_1.page))
-        self.account_btn.clicked.connect(lambda: self.pages.setCurrentWidget(self.ui_page_3.page))
-        self.initial_page_btn.clicked.connect(lambda: self.pages.setCurrentWidget(self.ui_page_2.page))
+        self.login_btn.clicked.connect(self.login_handle)
+        self.logout_btn.clicked.connect(self.logout_handle)
+        self.account_btn.clicked.connect(self.account_handle)
+        self.initial_page_btn.clicked.connect(self.initial_page_handle)
 
+    def login_handle(self):
+        self.login_btn.hide()
+        self.initial_page_btn.show()
+        self.pages.setCurrentWidget(self.ui_page_1.page)
 
-        
+    def logout_handle(self):
+        self.logout_btn.hide()
+        self.account_btn.hide()
+        self.initial_page_btn.show()
+        self.pages.setCurrentWidget(self.ui_page_1.page)
+
+    def account_handle(self):
+        self.account_btn.hide()
+        self.initial_page_btn.show()
+        self.pages.setCurrentWidget(self.ui_page_4.page)
+
+    def initial_page_handle(self):
+        if self.pages.currentWidget() == self.ui_page_1.page:
+            self.login_btn.show()
+        elif self.pages.currentWidget() == self.ui_page_4.page:
+            self.account_btn.show()
+
+        self.initial_page_btn.hide()
+
+        self.pages.setCurrentWidget(self.ui_page_2.page)
 

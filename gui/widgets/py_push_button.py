@@ -116,7 +116,6 @@ class PyPushButton(QPushButton):
         bottom_right_radius=0,
         is_active = False
     ):
-        print(top_left_radius)
         style = f"""
         QPushButton {{
             color: {text_color};

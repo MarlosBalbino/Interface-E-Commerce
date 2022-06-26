@@ -12,7 +12,7 @@ class Categories(QFrame):
 
         self.setMinimumWidth(280)
         self.setFixedHeight(458)
-        # self.setStyleSheet("background-color: grey")
+        self.setStyleSheet("background-color: transparent")
 
         self.categories = QFrame(self)
         self.categories.setStyleSheet("""
@@ -153,14 +153,15 @@ class Categories(QFrame):
             except:
                 pass
 
+
 class FilterFrame(QFrame):
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
-        # self.setStyleSheet("background-color: green")
+        self.setStyleSheet("background-color: transparent")
         self.setFixedWidth(280)   
         self.setMinimumHeight(458)
-        #self.setFixedHeight(300)
+        # self.setFixedHeight(300)
         self.v_spacer = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)     
 
         self.electronics = [
@@ -241,15 +242,13 @@ class FilterFrame(QFrame):
             self.games,
             self.smartphones]:
 
-            frame = MFrame(self)
+            frame = QFrame(self)
             frame.category = category
             frame.setStyleSheet("""
                 background-color: "#dfdfdf";
-                border-radius: 10px
+                border-radius: 10px;
             """)
             frame.setFixedWidth(280)
-            
-            #frame.move(0, pos[i])
             frame.hide()
 
             layout = QVBoxLayout(frame)
@@ -265,18 +264,9 @@ class FilterFrame(QFrame):
         for item in self.findChildren(QFrame):
             item.hide()
 
-class MFrame(QFrame):
-
-    def __init__(self, parent):
-        super().__init__(parent)
-        self.category = None
-    
-    def teste(self):
-        return len(self.category) * 40 + 18
-
 
 class CustomPyPushButton(PyPushButton):
-
+    """Diferença para PyPushButton são as opções de border radius e sinais"""
     hovered = Signal()
     leave = Signal()
 
@@ -398,6 +388,7 @@ class CustomPyPushButton(PyPushButton):
 
     def leaveEvent(self, event):
         self.leave.emit()
+
 
 class ListButton(QPushButton):
     

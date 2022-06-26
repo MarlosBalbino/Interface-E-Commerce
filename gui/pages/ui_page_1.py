@@ -5,6 +5,7 @@ from PySide6.QtWidgets import *  # type: ignore """
 from gui.widgets.my_push_button import MyPushButton
 from qt_core import *
 
+
 class UI_application_page_1(object):
 
     def __init__(self, window):
@@ -23,7 +24,7 @@ class UI_application_page_1(object):
         self.content_layout.setContentsMargins(0,0,0,0)
         self.content_layout.setSpacing(9)
 
-         #############################################################################################
+        #############################################################################################
         # TOP FRAME
         #############################################################################################
         self.top_frame = QFrame()
@@ -33,14 +34,11 @@ class UI_application_page_1(object):
         self.top_frame_layout = QHBoxLayout(self.top_frame)
         self.top_frame_layout.setContentsMargins(5,5,5,5)
 
-        
-
         self.h_spacer = QSpacerItem(500, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.h_spacer2 = QSpacerItem(20, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.v_spacer = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.top_frame_layout.addSpacerItem(self.h_spacer)
-        #self.top_frame_layout.addWidget(self.initial_page_btn)
 
         #############################################################################################
         # BOTTOM FRAME
@@ -193,7 +191,6 @@ class UI_application_page_1(object):
         self.register_btn = MyPushButton("Cadastrar", "#ff4747", maximum_width=100, maximum_heigth=35)        
         self.register_btn_frame_layout.addWidget(self.register_btn)
 
-
         self.register_layout.addWidget(self.register_label_frame)
         self.register_layout.addWidget(self.line_edit3)
         self.register_layout.addWidget(self.line_edit4)
@@ -210,8 +207,11 @@ class UI_application_page_1(object):
         self.verticalLayout.addWidget(self.content_frame)
         window.pages.addWidget(self.page)
 
-        self.login_btn.clicked.connect(lambda: window.account_btn.show())
-        self.login_btn.clicked.connect(lambda: window.login_btn.hide())
-        self.login_btn.clicked.connect(lambda: window.pages.setCurrentWidget(window.ui_page_2.page))
+        self.login_btn.clicked.connect(lambda: self.login_handle(window))
 
- 
+    @staticmethod
+    def login_handle(window):
+        window.logout_btn.show()
+        window.account_btn.show()
+        window.initial_page_btn.hide()
+        window.pages.setCurrentWidget(window.ui_page_2.page)

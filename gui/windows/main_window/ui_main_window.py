@@ -20,7 +20,7 @@ class UI_MainWindow(object):
             parent.setObjectName("MainWindow")
         
         # SET INCINALS PARAMETERS
-        parent.resize(1200, 720)
+        parent.resize(1366, 768)
         parent.setMinimumSize(480, 360)
 
         # CREATE MAIN FRAME

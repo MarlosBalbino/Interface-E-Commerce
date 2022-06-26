@@ -150,7 +150,7 @@ class UI_application_page_4(object):
         self.pages = QStackedWidget()
         self.pages.setStyleSheet("font-size: 12pt; color: #ff4747")
         self.pages.setWindowTitle("data_pages")
-        self.pages.setMinimumHeight(720)
+        self.pages.setMinimumHeight(633)
 
         # ACCOUNT PAGE
         self.my_account_page = QFrame()

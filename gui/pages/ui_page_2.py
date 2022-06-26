@@ -179,6 +179,11 @@ class UI_application_page_2(object):
         path = os.path.join(app_path, icons_folder)
         files = os.listdir(path)
 
+        try:
+            files = files.remove("desktop.ini")
+        except:
+            pass
+
         k = 0
         for i in range(2):
             for j in range(4):
@@ -257,13 +262,13 @@ class Product(QFrame):
         self.price_layout.setContentsMargins(0,0,0,0)
         self.price_layout.setSpacing(0)
 
-        self.original_price = QLabel(f"{original_price}")
+        self.original_price = QLabel(f"R$ {original_price}")
         self.original_price.setStyleSheet("QLabel{border: none}")
         font = self.original_price.font()
         font.setStrikeOut(True)
         self.original_price.setFont(font)
 
-        self.product_price = QLabel(f"{price}")
+        self.product_price = QLabel(f"R$ {price}")
         self.product_price.setStyleSheet(
             """QLabel{
                 color: #ff4747;
@@ -287,10 +292,12 @@ class Product(QFrame):
                                          maximum_heigth=35)
         self.register_btn_frame_layout.addWidget(self.register_btn)
 
-        self.v_spacer = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.v_spacer = QSpacerItem(20, 20, QSizePolicy.Maximum, QSizePolicy.Expanding)
 
         self.layout.addWidget(self.product_frame)
+        #self.layout.addSpacerItem(self.v_spacer)
         self.layout.addWidget(self.price_frame)
+        #self.layout.addSpacerItem(self.v_spacer)
         self.layout.addWidget(self.register_btn_frame)
-        self.layout.addSpacerItem(self.v_spacer)
+        #self.layout.addSpacerItem(self.v_spacer)
 
